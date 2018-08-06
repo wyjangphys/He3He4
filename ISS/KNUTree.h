@@ -972,7 +972,7 @@ void KNUTree::Init(TTree *tree)
 }
 
 Bool_t KNUTree::Notify()
-{
+{/*{{{*/
   // The Notify() function is called when a new file is opened. This
   // can be either for a new TTree in a TChain or when when a new TTree
   // is started when using PROOF. It is normally not necessary to make changes
@@ -980,17 +980,18 @@ Bool_t KNUTree::Notify()
   // user if needed. The return value is currently not used.
 
   return kTRUE;
-}
+}/*}}}*/
 
 void KNUTree::Show(Long64_t entry)
-{
+{/*{{{*/
   // Print contents of entry.
   // If entry is not specified, print current entry
   if (!fChain) return;
   fChain->Show(entry);
-}
+}/*}}}*/
+
 Int_t KNUTree::Cut(Long64_t entry)
-{
+{/*{{{*/
   // This function may be called from Loop.
   // returns  1 if entry is accepted.
   // returns -1 otherwise.
@@ -1008,14 +1009,14 @@ Int_t KNUTree::Cut(Long64_t entry)
   if( tofAcUpperCharge < 1.8 || tofAcUpperCharge > 2.8 ) return -1;
   if( tofAcLowerCharge < 1.9 || tofAcLowerCharge > 2.4 ) return -1;
   return 1;
-}
+}/*}}}*/
 
 Int_t KNUTree::Fragmented(Long64_t entry)
-{
+{/*{{{*/
   for( Int_t i = 0; i < 9; i++ )
     if( trkEdepLayerJ[i+1] - trkEdepLayerJ[i] > 1. ) return 1;
   return -1;
-}
+}/*}}}*/
 
 Double_t KNUTree::GetCorrectedTrackerCharge( Double_t beta, Double_t z )
 {/*{{{*/
@@ -1103,7 +1104,7 @@ Double_t KNUTree::GetMeanEdep(Int_t nSample, Float_t* pEdepArray)
 }/*}}}*/
 
 void KNUTree::Write(TString outputFileName)
-{
+{/*{{{*/
   /// Save data
   TFile* fOutput = new TFile(outputFileName, "RECREATE");
   fOutput->cd("/"); // This line prevents segmentation violation which was provoked by TFile::Write() function for unknown reason.
@@ -1193,5 +1194,5 @@ void KNUTree::Write(TString outputFileName)
   */
 
   fOutput->Close();
-}
+}/*}}}*/
 #endif // #ifdef KNUTree_cxx
